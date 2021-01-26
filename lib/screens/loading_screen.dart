@@ -35,8 +35,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
 
     _getWeatherData();
-
-    /// TODO: Make weather data query here
   }
 
   @override
