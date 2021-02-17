@@ -1,52 +1,39 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 class LocationService {
   double latitude;
   double longitude;
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  /// Using Location package
+  Location location = new Location();
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      permission = await Geolocator.requestPermission();
-      if (permission == null)
-        return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-      if (permission == null)
-        return Future.error(
-            'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
-        return Future.error(
-            'Location permissions are denied (actual value: $permission).');
+  Future getLocationData() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
       }
     }
 
-    return await Geolocator.getCurrentPosition();
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    return await location.getLocation();
   }
 
   Future getCurrentLocation() async {
     try {
-      // Position position = await Geolocator.getCurrentPosition(
-      //     desiredAccuracy: LocationAccuracy.low);
-
-      Position position = await _determinePosition();
-      print("Gotten position");
-      latitude = position.latitude;
-      longitude = position.longitude;
-
-      print("LATITUDE: $latitude");
-      print("LONGITUDE: $longitude");
+      LocationData locationData = await getLocationData();
+      latitude = locationData.latitude;
+      longitude = locationData.longitude;
     } catch (e) {
       print("Error from getCurrentLocation() $e");
     }
