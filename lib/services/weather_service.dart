@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:ellis_weather/services/location_service.dart';
 import 'package:ellis_weather/utilities/api_key.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:flutter_geocoder/geocoder.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
@@ -22,8 +22,10 @@ class WeatherService {
       var first = addresses.first;
       cityName = first.locality;
 
-      http.Response response = await http.get(
+      var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/onecall?lat=${locatorService.latitude}&lon=${locatorService.longitude}&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric");
+
+      http.Response response = await http.get(url);
 
       if (response.statusCode == 200) {
         String data = response.body;
@@ -57,8 +59,9 @@ class WeatherService {
 
   Future<dynamic> getWeatherByCityName(String cityName) async {
     try {
-      http.Response response = await http.get(
+      var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric");
+      http.Response response = await http.get(url);
 
       if (response.statusCode == 200) {
         String data = response.body;
