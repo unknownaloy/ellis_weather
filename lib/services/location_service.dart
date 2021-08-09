@@ -1,20 +1,21 @@
 import 'package:location/location.dart';
 
 class LocationService {
-  double latitude;
-  double longitude;
+  late double latitude;
+  late double longitude;
 
   /// Using Location package
   Location location = new Location();
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
 
-  Future getLocationData() async {
+  Future<LocationData> getLocationData() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        return;
+        throw Exception("Location not enabled");
+        // return;
       }
     }
 
@@ -22,7 +23,8 @@ class LocationService {
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
-        return;
+        // return;
+        throw Exception("Locations not enabled");
       }
     }
 
@@ -32,8 +34,8 @@ class LocationService {
   Future getCurrentLocation() async {
     try {
       LocationData locationData = await getLocationData();
-      latitude = locationData.latitude;
-      longitude = locationData.longitude;
+      latitude = locationData.latitude!;
+      longitude = locationData.longitude!;
     } catch (e) {
       print("Error from getCurrentLocation() $e");
     }

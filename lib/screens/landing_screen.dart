@@ -19,20 +19,20 @@ class _LandingScreenState extends State<LandingScreen> {
   WeatherService _weatherService = WeatherService();
 
   int temperature = 0;
-  String weatherIcon;
-  String description;
-  String weatherMessage;
-  int feelsLike;
-  int humidity;
-  String sunriseTime;
-  String sunsetTime;
-  String currentDateTime;
+  String? weatherIcon;
+  late String description;
+  late String weatherMessage;
+  late int feelsLike;
+  late int humidity;
+  late String sunriseTime;
+  late String sunsetTime;
+  late String currentDateTime;
   dynamic dailyDynamicData;
 
   String weatherImagePath = "default_image";
 
   /// Datetime variable needed for double-tap to exit the activity
-  DateTime _currentBackPressTime;
+  DateTime? _currentBackPressTime;
 
   /// Method for showing toast messages to the user
   void showToastMessage(String toastMessage) {
@@ -50,7 +50,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Future<bool> onWillPop() async {
     DateTime now = DateTime.now();
     if (_currentBackPressTime == null ||
-        now.difference(_currentBackPressTime) > Duration(seconds: 2)) {
+        now.difference(_currentBackPressTime!) > Duration(seconds: 2)) {
       _currentBackPressTime = now;
       showToastMessage("Press back again to exit");
 
@@ -67,7 +67,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   /// This method uses the weather icon code to determine the background image to
   /// use in displaying the weather information
-  void weatherBackgroundGenerator(String iconCode) {
+  void weatherBackgroundGenerator(String? iconCode) {
     /// Remove the last letter of the String
     if (iconCode != null && iconCode != "") {
       int stringLength = iconCode.length - 1;
@@ -193,10 +193,10 @@ class _LandingScreenState extends State<LandingScreen> {
       DateTime dayOfWeekDateTime =
           DateTime.fromMillisecondsSinceEpoch(data[i]["dt"] * 1000);
       String dayOfWeek = dayOfWeekFormat.format(dayOfWeekDateTime);
-      int maxTemp = data[i]["temp"]["max"].toInt();
-      int minTemp = data[i]["temp"]["min"].toInt();
-      int humidity = data[i]["humidity"].toInt();
-      String icon = data[i]["weather"][0]["icon"];
+      int? maxTemp = data[i]["temp"]["max"].toInt();
+      int? minTemp = data[i]["temp"]["min"].toInt();
+      int? humidity = data[i]["humidity"].toInt();
+      String? icon = data[i]["weather"][0]["icon"];
       String weatherIcon = _weatherService.getWeatherIcon(icon);
 
       TableRow tableRowChunk = TableRow(
@@ -248,7 +248,7 @@ class _LandingScreenState extends State<LandingScreen> {
   void updateUI() {
     setState(() {
       temperature = GlobalVariables.weatherData["current"]["temp"].toInt();
-      String icon =
+      String? icon =
           GlobalVariables.weatherData["current"]["weather"][0]["icon"];
       weatherIcon = _weatherService.getWeatherIcon(icon);
       description =
@@ -365,7 +365,7 @@ class _LandingScreenState extends State<LandingScreen> {
                               ),
                               weatherIcon != null
                                   ? Image.network(
-                                      weatherIcon,
+                                      weatherIcon!,
                                       width: 96,
                                       height: 96,
                                     )

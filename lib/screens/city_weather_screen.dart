@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class CityWeatherScreen extends StatefulWidget {
   final cityName;
 
-  CityWeatherScreen({@required this.cityName});
+  CityWeatherScreen({required this.cityName});
 
   @override
   _CityWeatherScreenState createState() => _CityWeatherScreenState();
@@ -22,18 +22,18 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
 
   dynamic weatherData;
 
-  int temperature;
-  String description;
-  String cityName;
-  String weatherMessage;
-  String weatherIcon;
-  int feelsLike;
-  int humidity;
-  int maxTemp;
-  int minTemp;
-  String sunriseTime;
-  String sunsetTime;
-  String currentDateTime;
+  late int temperature;
+  late String description;
+  late String cityName;
+  late String weatherMessage;
+  String? weatherIcon;
+  late int feelsLike;
+  late int humidity;
+  late int maxTemp;
+  late int minTemp;
+  late String sunriseTime;
+  late String sunsetTime;
+  String? currentDateTime;
 
   String weatherImagePath = "default_image";
 
@@ -92,7 +92,7 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
                       ),
                       weatherIcon != null
                           ? Image.network(
-                              weatherIcon,
+                              weatherIcon!,
                               width: 96,
                               height: 96,
                             )
@@ -204,7 +204,7 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
 
   /// This method uses the weather icon code to determine the background image to
   /// use in displaying the weather information
-  void weatherBackgroundGenerator(String iconCode) {
+  void weatherBackgroundGenerator(String? iconCode) {
     /// Remove the last letter of the String
     if (iconCode != null && iconCode != "") {
       int stringLength = iconCode.length - 1;
@@ -281,7 +281,7 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
         description = weatherData["weather"][0]["description"];
         description = WeatherBrain.capitalizeFirstLetterOfWords(description);
         weatherMessage = _weatherService.getMessage(temperature);
-        String icon = weatherData["weather"][0]["icon"];
+        String? icon = weatherData["weather"][0]["icon"];
         weatherIcon = _weatherService.getWeatherIcon(icon);
         feelsLike = weatherData["main"]["feels_like"].toInt();
         humidity = weatherData["main"]["humidity"].toInt();

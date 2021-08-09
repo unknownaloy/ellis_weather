@@ -1,5 +1,5 @@
 class GlobalVariables {
   static dynamic weatherData;
 
-  static String cityName;
+  static late String cityName;
 }

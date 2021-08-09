@@ -6,7 +6,7 @@ import 'package:flutter_geocoder/geocoder.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
-  String cityName;
+  late String cityName;
 
   /// Method to get weather data of the current location using the "One Call"
   /// method from "openweathermap.org"
@@ -20,7 +20,9 @@ class WeatherService {
       var addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
-      cityName = first.locality;
+      cityName = first.locality!;
+
+      print("getWeatherData => City name === $cityName");
 
       var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/onecall?lat=${locatorService.latitude}&lon=${locatorService.longitude}&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric");
@@ -39,7 +41,7 @@ class WeatherService {
     }
   }
 
-  String getWeatherIcon(String iconCode) {
+  String getWeatherIcon(String? iconCode) {
     String openWeatherIconCode =
         "http://openweathermap.org/img/wn/$iconCode@2x.png";
     return openWeatherIconCode;
