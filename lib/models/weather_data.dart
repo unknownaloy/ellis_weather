@@ -1,29 +1,17 @@
+import 'package:ellis_weather/models/current.dart';
+import 'package:ellis_weather/models/daily.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_data.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class WeatherData {
-  int? temperature;
-  String? weatherIcon;
-  String? description;
-  String? weatherMessage;
-  int? feelsLike;
-  int? humidity;
-  String? sunriseTime;
-  String? sunsetTime;
-  String? currentDateTime;
+  Current? current;
+  List<Daily>? daily;
 
   WeatherData({
-    this.temperature,
-    this.weatherIcon,
-    this.description,
-    this.weatherMessage,
-    this.feelsLike,
-    this.humidity,
-    this.sunriseTime,
-    this.sunsetTime,
-    this.currentDateTime,
+    this.current,
+    this.daily,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) =>
