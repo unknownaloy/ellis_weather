@@ -1,4 +1,5 @@
 import 'package:ellis_weather/screens/wrapper.dart';
+import 'package:ellis_weather/view_models/background_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => WeatherViewModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => WeatherViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BackgroundViewModel(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ellis Weather',

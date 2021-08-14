@@ -16,6 +16,7 @@ Current _$CurrentFromJson(Map<String, dynamic> json) {
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
     feelsLike: (json['feels_like'] as num?)?.toDouble(),
+    dateTime: json['dt'] as int?,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$CurrentToJson(Current instance) => <String, dynamic>{
       'humidity': instance.humidity,
       'weather': instance.weather?.map((e) => e.toJson()).toList(),
       'feels_like': instance.feelsLike,
+      'dt': instance.dateTime,
     };

@@ -1,3 +1,4 @@
+import 'package:ellis_weather/functions/custom_functions.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ class WeekdaysWeatherTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<WeatherViewModel>(context).weatherData.daily;
+    final dailyWeatherData =
+        Provider.of<WeatherViewModel>(context).weatherData.daily;
     return Table(
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       border: TableBorder(
@@ -54,20 +56,21 @@ class WeekdaysWeatherTable extends StatelessWidget {
             ),
           ],
         ),
-        ...viewModel!.map((data) {
+        ...dailyWeatherData!.map((data) {
+          String dayOfWeek = CustomFunctions.testingOne(data.dateTime);
           return TableRow(
             children: [
               Text(
-                "$dayOfWeek${addToDateEnd(dayOfWeek)}",
+                "$dayOfWeek${CustomFunctions.addOrdinalSymbol(dayOfWeek)}",
                 style: kContentTextStyle,
               ),
               Text(
-                "${data.dailyTemp?.max?.toInt()}°C",
+                "${data.dailyTemp!.max!.toInt()}°C",
                 style: kContentTextStyle,
                 textAlign: TextAlign.center,
               ),
               Text(
-                "${data.dailyTemp?.min?.toInt()}°C",
+                "${data.dailyTemp!.min!.toInt()}°C",
                 style: kContentTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -75,15 +78,15 @@ class WeekdaysWeatherTable extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  weatherIcon != null
+                  data.dailyWeather![0].icon != null
                       ? Image.network(
-                          weatherIcon,
+                          "${CustomFunctions.generateIconUrl(data.dailyWeather![0].icon)}",
                           width: 32,
                           height: 32,
                         )
                       : SizedBox.shrink(),
                   Text(
-                    "$humidity%",
+                    "${data.humidity}%",
                     style: kContentTextStyle,
                     textAlign: TextAlign.center,
                   ),

@@ -14,6 +14,9 @@ class Current {
   @JsonKey(name: "feels_like")
   double? feelsLike;
 
+  @JsonKey(name: "dt")
+  int? dateTime;
+
   Current({
     this.sunrise,
     this.sunset,
@@ -21,6 +24,7 @@ class Current {
     this.humidity,
     this.weather,
     this.feelsLike,
+    this.dateTime,
   });
 
   factory Current.fromJson(Map<String, dynamic> json) =>

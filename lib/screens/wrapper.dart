@@ -53,7 +53,7 @@ class _WrapperState extends State<Wrapper> {
       print("Weather has data");
       print(
           "DATA TESTING => ${viewModel.weatherData.current!.weather![0].main}");
-      return Text("Data present!");
+      return LandingScreen();
     }
   }
 }
