@@ -6,10 +6,13 @@ part 'weather_data.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class WeatherData {
+  @JsonKey(ignore: true)
+  String? cityName;
   Current? current;
   List<Daily>? daily;
 
   WeatherData({
+    this.cityName,
     this.current,
     this.daily,
   });

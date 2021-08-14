@@ -1,14 +1,18 @@
-import 'package:ellis_weather/screens/loading_screen.dart';
+import 'package:ellis_weather/functions/custom_functions.dart';
+import 'package:ellis_weather/screens/wrapper.dart';
 import 'package:ellis_weather/screens/search_by_city.dart';
 import 'package:ellis_weather/services/weather_service.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/utilities/global_variables.dart';
 import 'package:ellis_weather/utilities/weather_brain.dart';
+import 'package:ellis_weather/view_models/background_view_model.dart';
+import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -278,11 +282,22 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
 
+    final iconCode = Provider.of<WeatherViewModel>(context, listen: false)
+        .weatherData
+        .current
+        ?.weather?[0]
+        .icon;
+
+    Provider.of<BackgroundViewModel>(context, listen: false)
+        .generateBackgroundImage(iconCode);
+
     updateUI();
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<WeatherViewModel>(context);
+    final bgViewModel = Provider.of<BackgroundViewModel>(context).background;
     return SafeArea(
       child: WillPopScope(
         onWillPop: onWillPop,
@@ -295,7 +310,7 @@ class _LandingScreenState extends State<LandingScreen> {
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
-                  return LoadingScreen();
+                  return Wrapper();
                 }));
               },
               icon: Icon(
@@ -308,17 +323,22 @@ class _LandingScreenState extends State<LandingScreen> {
             centerTitle: true,
             actions: [
               IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    size: 32.0,
-                    color: Colors.grey,
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return SearchByCity();
-                    }));
-                  }),
+                icon: Icon(
+                  Icons.search,
+                  size: 32.0,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SearchByCity();
+                      },
+                    ),
+                  );
+                },
+              ),
               SizedBox(
                 width: 16.0,
               ),
@@ -327,7 +347,7 @@ class _LandingScreenState extends State<LandingScreen> {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/$weatherImagePath.jpg'),
+                image: AssetImage('images/$bgViewModel.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.75), BlendMode.srcATop),
@@ -345,13 +365,16 @@ class _LandingScreenState extends State<LandingScreen> {
                         children: [
                           /// City Name
                           Text(
-                            GlobalVariables.cityName,
+                            viewModel.weatherData.cityName ??
+                                "...", // GlobalVariables.cityName,
                             style: kCityNameTextStyle,
                           ),
 
                           /// Weather Description
                           Text(
-                            description,
+                            viewModel.weatherData.current?.weather?[0]
+                                    .description ??
+                                "...", // description,
                             style: kContentTextStyle,
                           ),
 
@@ -360,7 +383,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                '$temperature°C',
+                                "${viewModel.weatherData.current?.temp?.toInt()}°C", // '$temperature°C',
                                 style: kTempTextStyle,
                               ),
                               weatherIcon != null
@@ -400,7 +423,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Sunrise: $sunriseTime",
+                                "Sunrise: ${CustomFunctions.hourMinutesFormatter(viewModel.weatherData.current?.sunrise)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(
@@ -415,7 +438,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 width: 16.0,
                               ),
                               Text(
-                                "Sunset: $sunsetTime",
+                                "Sunset: ${CustomFunctions.hourMinutesFormatter(viewModel.weatherData.current?.sunset)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(

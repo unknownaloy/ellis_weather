@@ -27,9 +27,6 @@ class WeatherService {
       var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/onecall?lat=${locatorService.latitude}&lon=${locatorService.longitude}&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric");
 
-      print("LONGITUDE => ${locatorService.longitude}");
-      print("LATITUDE => ${locatorService.latitude}");
-
       http.Response response = await http.get(url);
 
       if (response.statusCode == 200) {

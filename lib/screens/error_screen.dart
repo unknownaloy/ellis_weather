@@ -1,4 +1,4 @@
-import 'package:ellis_weather/screens/loading_screen.dart';
+import 'package:ellis_weather/screens/wrapper.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,7 +36,7 @@ class ErrorScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
-                    return LoadingScreen();
+                    return Wrapper();
                   }));
                 },
                 child: Text("Try again!"),
