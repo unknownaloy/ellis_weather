@@ -71,68 +71,68 @@ class _LandingScreenState extends State<LandingScreen> {
 
   /// This method uses the weather icon code to determine the background image to
   /// use in displaying the weather information
-  void weatherBackgroundGenerator(String? iconCode) {
-    /// Remove the last letter of the String
-    if (iconCode != null && iconCode != "") {
-      int stringLength = iconCode.length - 1;
-      iconCode = iconCode.substring(0, stringLength);
-      if (iconCode == "01") {
-        if (weatherImagePath != "clear_sky") {
-          setState(() {
-            weatherImagePath = "clear_sky";
-          });
-        }
-      } else if (iconCode == "02") {
-        if (weatherImagePath != "few_clouds") {
-          setState(() {
-            weatherImagePath = "few_clouds";
-          });
-        }
-      } else if (iconCode == "03") {
-        if (weatherImagePath != "scattered_clouds") {
-          setState(() {
-            weatherImagePath = "scattered_clouds";
-          });
-        }
-      } else if (iconCode == "04") {
-        if (weatherImagePath != "broken_clouds") {
-          setState(() {
-            weatherImagePath = "broken_clouds";
-          });
-        }
-      } else if (iconCode == "09" || iconCode == "10") {
-        if (weatherImagePath != "rain") {
-          setState(() {
-            weatherImagePath = "rain";
-          });
-        }
-      } else if (iconCode == "11") {
-        if (weatherImagePath != "thunderstorm") {
-          setState(() {
-            weatherImagePath = "thunderstorm";
-          });
-        }
-      } else if (iconCode == "13") {
-        if (weatherImagePath != "snow") {
-          setState(() {
-            weatherImagePath = "snow";
-          });
-        }
-      } else if (iconCode == "50") {
-        if (weatherImagePath != "mist") {
-          setState(() {
-            weatherImagePath = "mist";
-          });
-        }
-      } else {
-        if (weatherImagePath != "default_image") {
-          setState(() {
-            weatherImagePath = "default_image";
-          });
-        }
-      }
-    }
-  }
+  // void weatherBackgroundGenerator(String? iconCode) {
+  //   /// Remove the last letter of the String
+  //   if (iconCode != null && iconCode != "") {
+  //     int stringLength = iconCode.length - 1;
+  //     iconCode = iconCode.substring(0, stringLength);
+  //     if (iconCode == "01") {
+  //       if (weatherImagePath != "clear_sky") {
+  //         setState(() {
+  //           weatherImagePath = "clear_sky";
+  //         });
+  //       }
+  //     } else if (iconCode == "02") {
+  //       if (weatherImagePath != "few_clouds") {
+  //         setState(() {
+  //           weatherImagePath = "few_clouds";
+  //         });
+  //       }
+  //     } else if (iconCode == "03") {
+  //       if (weatherImagePath != "scattered_clouds") {
+  //         setState(() {
+  //           weatherImagePath = "scattered_clouds";
+  //         });
+  //       }
+  //     } else if (iconCode == "04") {
+  //       if (weatherImagePath != "broken_clouds") {
+  //         setState(() {
+  //           weatherImagePath = "broken_clouds";
+  //         });
+  //       }
+  //     } else if (iconCode == "09" || iconCode == "10") {
+  //       if (weatherImagePath != "rain") {
+  //         setState(() {
+  //           weatherImagePath = "rain";
+  //         });
+  //       }
+  //     } else if (iconCode == "11") {
+  //       if (weatherImagePath != "thunderstorm") {
+  //         setState(() {
+  //           weatherImagePath = "thunderstorm";
+  //         });
+  //       }
+  //     } else if (iconCode == "13") {
+  //       if (weatherImagePath != "snow") {
+  //         setState(() {
+  //           weatherImagePath = "snow";
+  //         });
+  //       }
+  //     } else if (iconCode == "50") {
+  //       if (weatherImagePath != "mist") {
+  //         setState(() {
+  //           weatherImagePath = "mist";
+  //         });
+  //       }
+  //     } else {
+  //       if (weatherImagePath != "default_image") {
+  //         setState(() {
+  //           weatherImagePath = "default_image";
+  //         });
+  //       }
+  //     }
+  //   }
+  // }
 
   List<TableRow> tableWidgets(dynamic data) {
     List<TableRow> widgets = [];
@@ -249,34 +249,34 @@ class _LandingScreenState extends State<LandingScreen> {
   /// Method that updates the screen with the information of the weather data
   ///
   /// NOTE: This method is called in the initState
-  void updateUI() {
-    setState(() {
-      temperature = GlobalVariables.weatherData["current"]["temp"].toInt();
-      String? icon =
-          GlobalVariables.weatherData["current"]["weather"][0]["icon"];
-      weatherIcon = _weatherService.getWeatherIcon(icon);
-      description =
-          GlobalVariables.weatherData["current"]["weather"][0]["description"];
-      description = WeatherBrain.capitalizeFirstLetterOfWords(description);
-      weatherMessage = _weatherService.getMessage(temperature.toInt());
-      feelsLike = GlobalVariables.weatherData["current"]["feels_like"].toInt();
-      humidity = GlobalVariables.weatherData["current"]["humidity"].toInt();
-      int sunrise = GlobalVariables.weatherData["current"]["sunrise"];
-      int sunset = GlobalVariables.weatherData["current"]["sunset"];
-      DateTime sunriseDate =
-          DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
-      DateTime sunsetDate = DateTime.fromMillisecondsSinceEpoch(sunset * 1000);
-      sunriseTime = kHourMinuteFormat.format(sunriseDate);
-      sunsetTime = kHourMinuteFormat.format(sunsetDate);
-      weatherBackgroundGenerator(icon);
-      int dateTime = GlobalVariables.weatherData["current"]["dt"];
-      DateTime dateTimeData =
-          DateTime.fromMillisecondsSinceEpoch(dateTime * 1000);
-      final timeFormat = DateFormat("EEEE, LLL d");
-      currentDateTime = timeFormat.format(dateTimeData);
-      dailyDynamicData = GlobalVariables.weatherData["daily"];
-    });
-  }
+  // void updateUI() {
+  //   setState(() {
+  //     temperature = GlobalVariables.weatherData["current"]["temp"].toInt();
+  //     String? icon =
+  //         GlobalVariables.weatherData["current"]["weather"][0]["icon"];
+  //     weatherIcon = _weatherService.getWeatherIcon(icon);
+  //     description =
+  //         GlobalVariables.weatherData["current"]["weather"][0]["description"];
+  //     description = WeatherBrain.capitalizeFirstLetterOfWords(description);
+  //     weatherMessage = _weatherService.getMessage(temperature.toInt());
+  //     feelsLike = GlobalVariables.weatherData["current"]["feels_like"].toInt();
+  //     humidity = GlobalVariables.weatherData["current"]["humidity"].toInt();
+  //     int sunrise = GlobalVariables.weatherData["current"]["sunrise"];
+  //     int sunset = GlobalVariables.weatherData["current"]["sunset"];
+  //     DateTime sunriseDate =
+  //         DateTime.fromMillisecondsSinceEpoch(sunrise * 1000);
+  //     DateTime sunsetDate = DateTime.fromMillisecondsSinceEpoch(sunset * 1000);
+  //     sunriseTime = kHourMinuteFormat.format(sunriseDate);
+  //     sunsetTime = kHourMinuteFormat.format(sunsetDate);
+  //     weatherBackgroundGenerator(icon);
+  //     int dateTime = GlobalVariables.weatherData["current"]["dt"];
+  //     DateTime dateTimeData =
+  //         DateTime.fromMillisecondsSinceEpoch(dateTime * 1000);
+  //     final timeFormat = DateFormat("EEEE, LLL d");
+  //     currentDateTime = timeFormat.format(dateTimeData);
+  //     dailyDynamicData = GlobalVariables.weatherData["daily"];
+  //   });
+  // }
 
   @override
   void initState() {
@@ -291,7 +291,7 @@ class _LandingScreenState extends State<LandingScreen> {
     Provider.of<BackgroundViewModel>(context, listen: false)
         .generateBackgroundImage(iconCode);
 
-    updateUI();
+    // updateUI();
   }
 
   @override
@@ -308,6 +308,7 @@ class _LandingScreenState extends State<LandingScreen> {
             backgroundColor: Colors.transparent,
             leading: IconButton(
               onPressed: () {
+                /// Use pull to refresh here
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
                   return Wrapper();
