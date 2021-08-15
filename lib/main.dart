@@ -1,5 +1,4 @@
 import 'package:ellis_weather/screens/wrapper.dart';
-import 'package:ellis_weather/view_models/background_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +15,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => WeatherViewModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => BackgroundViewModel(),
         ),
       ],
       child: MaterialApp(

@@ -3,7 +3,6 @@ import 'package:ellis_weather/screens/weekdays_weather_table.dart';
 import 'package:ellis_weather/screens/wrapper.dart';
 import 'package:ellis_weather/screens/search_by_city.dart';
 import 'package:ellis_weather/utilities/const.dart';
-import 'package:ellis_weather/view_models/background_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,23 +51,8 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    final iconCode = Provider.of<WeatherViewModel>(context, listen: false)
-        .weatherData
-        .current!
-        .weather?[0]
-        .icon;
-
-    Provider.of<BackgroundViewModel>(context, listen: false)
-        .generateBackgroundImage(iconCode);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<WeatherViewModel>(context);
-    final bgViewModel = Provider.of<BackgroundViewModel>(context).background;
+    final weatherData = Provider.of<WeatherViewModel>(context).weatherData;
     return SafeArea(
       child: WillPopScope(
         onWillPop: onWillPop,
@@ -92,7 +76,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ),
             title: Text(
-                "${CustomFunctions.weekdayMonthDayFormatter(viewModel.weatherData.current!.dateTime)}"),
+                "${CustomFunctions.weekdayMonthDayFormatter(weatherData.current!.dateTime)}"),
             centerTitle: true,
             actions: [
               IconButton(
@@ -120,7 +104,8 @@ class _LandingScreenState extends State<LandingScreen> {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/$bgViewModel.jpg'),
+                image: AssetImage(
+                    'images/${CustomFunctions.generateBackgroundImage(weatherData.current!.weather?[0].icon)}.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.75), BlendMode.srcATop),
@@ -138,14 +123,13 @@ class _LandingScreenState extends State<LandingScreen> {
                         children: [
                           /// City Name
                           Text(
-                            viewModel.weatherData.cityName ?? "...",
+                            weatherData.cityName ?? "...",
                             style: kCityNameTextStyle,
                           ),
 
                           /// Weather Description
                           Text(
-                            viewModel.weatherData.current!.weather?[0]
-                                    .description ??
+                            weatherData.current!.weather?[0].description ??
                                 "...", // description,
                             style: kContentTextStyle,
                           ),
@@ -155,13 +139,12 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                "${viewModel.weatherData.current!.temp!.toInt()}°C", // '$temperature°C',
+                                "${weatherData.current!.temp!.toInt()}°C", // '$temperature°C',
                                 style: kTempTextStyle,
                               ),
-                              viewModel.weatherData.current!.weather?[0].icon !=
-                                      null
+                              weatherData.current!.weather?[0].icon != null
                                   ? Image.network(
-                                      "${CustomFunctions.generateIconUrl(viewModel.weatherData.current!.weather![0].icon)}",
+                                      "${CustomFunctions.generateIconUrl(weatherData.current!.weather![0].icon)}",
                                       width: 96,
                                       height: 96,
                                     )
@@ -174,14 +157,14 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Feels like: ${viewModel.weatherData.current!.feelsLike!.toInt()}°C",
+                                "Feels like: ${weatherData.current!.feelsLike!.toInt()}°C",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(
                                 width: 16.0,
                               ),
                               Text(
-                                "Humidity: ${viewModel.weatherData.current!.humidity}%",
+                                "Humidity: ${weatherData.current!.humidity}%",
                                 style: kContentTextStyle,
                               ),
                             ],
@@ -196,7 +179,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Sunrise: ${CustomFunctions.hourMinutesFormatter(viewModel.weatherData.current!.sunrise)}",
+                                "Sunrise: ${CustomFunctions.hourMinutesFormatter(weatherData.current!.sunrise)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(
@@ -211,7 +194,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 width: 16.0,
                               ),
                               Text(
-                                "Sunset: ${CustomFunctions.hourMinutesFormatter(viewModel.weatherData.current!.sunset)}",
+                                "Sunset: ${CustomFunctions.hourMinutesFormatter(weatherData.current!.sunset)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(

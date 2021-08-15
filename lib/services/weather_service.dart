@@ -11,9 +11,15 @@ class WeatherService {
   /// Method to get weather data of the current location using the "One Call"
   /// method from "openweathermap.org"
   Future<dynamic> getWeatherData() async {
+    print("Got to the getWeatherData method");
     try {
+      print("Got to the try statement");
       LocationService locatorService = LocationService();
+      print("locator servicw");
       await locatorService.getCurrentLocation();
+
+      print("getWeatherData => Longitude === ${locatorService.longitude}");
+      print("getWeatherData => latitude === ${locatorService.latitude}");
 
       final coordinates =
           new Coordinates(locatorService.latitude, locatorService.longitude);
@@ -34,6 +40,8 @@ class WeatherService {
         return jsonDecode(data);
       } else {
         print("Error");
+
+        /// TODO: Throw better error here
         throw ("Error");
       }
     } catch (e) {
