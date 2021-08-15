@@ -15,7 +15,7 @@ class WeatherService {
     try {
       print("Got to the try statement");
       LocationService locatorService = LocationService();
-      print("locator servicw");
+      print("locator service");
       await locatorService.getCurrentLocation();
 
       print("getWeatherData => Longitude === ${locatorService.longitude}");

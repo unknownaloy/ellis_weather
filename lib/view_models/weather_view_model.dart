@@ -20,7 +20,7 @@ class WeatherViewModel extends ChangeNotifier {
   WeatherData get weatherData => _weatherData;
 
   Future<void> fetchWeatherData() async {
-    print("Hello friend");
+    print("Fetching data from weatherViewModel");
     _weatherService.getWeatherData().then((data) {
       print("Getting data...");
       _weatherData = WeatherData.fromJson(data);

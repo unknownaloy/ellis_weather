@@ -1,4 +1,5 @@
 import 'package:ellis_weather/screens/wrapper.dart';
+import 'package:ellis_weather/view_models/city_search_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => WeatherViewModel(),
+          create: (_) => WeatherViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CitySearchViewModel(),
         ),
       ],
       child: MaterialApp(

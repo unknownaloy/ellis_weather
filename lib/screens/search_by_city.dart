@@ -1,7 +1,9 @@
 import 'package:ellis_weather/screens/city_weather_screen.dart';
 import 'package:ellis_weather/screens/landing_screen.dart';
 import 'package:ellis_weather/utilities/const.dart';
+import 'package:ellis_weather/view_models/city_search_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchByCity extends StatefulWidget {
   @override
@@ -35,6 +37,7 @@ class _SearchByCityState extends State<SearchByCity> {
 
   @override
   Widget build(BuildContext context) {
+    final cityViewModel = Provider.of<CitySearchViewModel>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -42,10 +45,14 @@ class _SearchByCityState extends State<SearchByCity> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return LandingScreen();
-            }));
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return LandingScreen();
+                },
+              ),
+            );
           },
           icon: Icon(
             Icons.arrow_back,
@@ -87,6 +94,9 @@ class _SearchByCityState extends State<SearchByCity> {
                         _searchFocusNode.unfocus();
                       }
                       _textController.clear();
+                      cityViewModel.setCityName(searchQuery);
+
+                      /// TODO: Removed the passed data from CityWeatherScreen
                       Navigator.push(
                         context,
                         MaterialPageRoute(
