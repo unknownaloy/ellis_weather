@@ -15,22 +15,22 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   WeatherService _weatherService = WeatherService();
 
-  void _getWeatherData() async {
-    // var weatherData = await _weatherService.getWeatherData();
-    GlobalVariables.weatherData = await _weatherService.getWeatherData();
-    // String cityName = _weatherService.cityName;
-    GlobalVariables.cityName = _weatherService.cityName;
-
-    if (GlobalVariables.weatherData != null) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return LandingScreen();
-      }));
-    } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return ErrorScreen();
-      }));
-    }
-  }
+  // void _getWeatherData() async {
+  //   // var weatherData = await _weatherService.getWeatherData();
+  //   GlobalVariables.weatherData = await _weatherService.getWeatherData();
+  //   // String cityName = _weatherService.cityName;
+  //   GlobalVariables.cityName = _weatherService.cityName;
+  //
+  //   if (GlobalVariables.weatherData != null) {
+  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+  //       return LandingScreen();
+  //     }));
+  //   } else {
+  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+  //       return ErrorScreen();
+  //     }));
+  //   }
+  // }
 
   @override
   void initState() {

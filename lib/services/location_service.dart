@@ -12,10 +12,8 @@ class LocationService {
   Future<LocationData> getLocationData() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
-      print("Location service not enabled");
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        print("Location service still not enabled");
         throw Exception("Location not enabled");
         // return;
       }
@@ -34,15 +32,11 @@ class LocationService {
   }
 
   Future getCurrentLocation() async {
-    print("getCurrentLocation => Before the try-block");
     try {
-      print("getCurrentLocation => Inside the try-block");
       LocationData locationData = await getLocationData();
       print("Print location data $locationData");
       latitude = locationData.latitude!;
       longitude = locationData.longitude!;
-      print("LATITUDE: $latitude");
-      print("LONGITUDE: $longitude");
     } catch (e) {
       print("Error from getCurrentLocation() $e");
     }
