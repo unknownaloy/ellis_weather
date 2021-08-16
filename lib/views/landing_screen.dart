@@ -1,9 +1,9 @@
-import 'package:ellis_weather/functions/custom_functions.dart';
-import 'package:ellis_weather/screens/weekdays_weather_table.dart';
-import 'package:ellis_weather/screens/wrapper.dart';
-import 'package:ellis_weather/screens/search_by_city.dart';
+import 'package:ellis_weather/functions/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
+import 'package:ellis_weather/views/search_by_city.dart';
+import 'package:ellis_weather/components/weekdays_weather_table.dart';
+import 'package:ellis_weather/views/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -76,7 +76,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ),
             title: Text(
-                "${CustomFunctions.weekdayMonthDayFormatter(weatherData.current!.dateTime)}"),
+                "${Utils.weekdayMonthDayFormatter(weatherData.current!.dateTime)}"),
             centerTitle: true,
             actions: [
               IconButton(
@@ -105,7 +105,7 @@ class _LandingScreenState extends State<LandingScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'images/${CustomFunctions.generateBackgroundImage(weatherData.current!.weather?[0].icon)}.jpg'),
+                    'images/${Utils.generateBackgroundImage(weatherData.current!.weather?[0].icon)}.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.75), BlendMode.srcATop),
@@ -144,7 +144,7 @@ class _LandingScreenState extends State<LandingScreen> {
                               ),
                               weatherData.current!.weather?[0].icon != null
                                   ? Image.network(
-                                      "${CustomFunctions.generateIconUrl(weatherData.current!.weather![0].icon)}",
+                                      "${Utils.generateIconUrl(weatherData.current!.weather![0].icon)}",
                                       width: 96,
                                       height: 96,
                                     )
@@ -179,7 +179,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Sunrise: ${CustomFunctions.hourMinutesFormatter(weatherData.current!.sunrise)}",
+                                "Sunrise: ${Utils.hourMinutesFormatter(weatherData.current!.sunrise)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(
@@ -194,7 +194,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 width: 16.0,
                               ),
                               Text(
-                                "Sunset: ${CustomFunctions.hourMinutesFormatter(weatherData.current!.sunset)}",
+                                "Sunset: ${Utils.hourMinutesFormatter(weatherData.current!.sunset)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(

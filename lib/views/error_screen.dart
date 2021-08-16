@@ -1,5 +1,5 @@
-import 'package:ellis_weather/screens/wrapper.dart';
 import 'package:ellis_weather/utilities/const.dart';
+import 'package:ellis_weather/views/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

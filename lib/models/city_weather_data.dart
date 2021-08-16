@@ -1,4 +1,5 @@
 import 'package:ellis_weather/models/city_main.dart';
+import 'package:ellis_weather/models/city_sys.dart';
 import 'package:ellis_weather/models/weather.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,9 +12,17 @@ class CityWeatherData {
   @JsonKey(name: "main")
   CityMain? cityMain;
 
+  @JsonKey(name: "sys")
+  CitySys? citySys;
+
+  @JsonKey(name: "dt")
+  int? dateTime;
+
   CityWeatherData({
     this.weather,
     this.cityMain,
+    this.citySys,
+    this.dateTime,
   });
 
   factory CityWeatherData.fromJson(Map<String, dynamic> json) =>

@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 enum WeatherState {
   LOADING,
-  DATA_PRESENT,
   ERROR,
+  DATA_PRESENT,
 }
 
 class WeatherViewModel extends ChangeNotifier {
@@ -22,22 +22,14 @@ class WeatherViewModel extends ChangeNotifier {
   Future<void> fetchWeatherData() async {
     print("Fetching data from weatherViewModel");
     _weatherService.getWeatherData().then((data) {
-      print("Getting data...");
       _weatherData = WeatherData.fromJson(data);
       _weatherData.cityName = _weatherService.cityName;
-      print(_weatherData.current!.weather![0].description);
-      _weatherState = WeatherState.DATA_PRESENT;
 
-      // notifyListeners();
+      _weatherState = WeatherState.DATA_PRESENT;
     }).catchError((onError) {
-      print("Error");
       _weatherState = WeatherState.ERROR;
-      // notifyListeners();
     }).whenComplete(() {
-      print("Listeners were notified");
       notifyListeners();
     });
-
-    // notifyListeners();
   }
 }

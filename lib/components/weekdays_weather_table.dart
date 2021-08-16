@@ -1,4 +1,4 @@
-import 'package:ellis_weather/functions/custom_functions.dart';
+import 'package:ellis_weather/functions/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
@@ -57,11 +57,11 @@ class WeekdaysWeatherTable extends StatelessWidget {
           ],
         ),
         ...dailyWeatherData!.map((data) {
-          String dayOfWeek = CustomFunctions.testingOne(data.dateTime);
+          String dayOfWeek = Utils.testingOne(data.dateTime);
           return TableRow(
             children: [
               Text(
-                "$dayOfWeek${CustomFunctions.addOrdinalSymbol(dayOfWeek)}",
+                "$dayOfWeek${Utils.addOrdinalSymbol(dayOfWeek)}",
                 style: kContentTextStyle,
               ),
               Text(
@@ -80,7 +80,7 @@ class WeekdaysWeatherTable extends StatelessWidget {
                 children: [
                   data.dailyWeather![0].icon != null
                       ? Image.network(
-                          "${CustomFunctions.generateIconUrl(data.dailyWeather![0].icon)}",
+                          "${Utils.generateIconUrl(data.dailyWeather![0].icon)}",
                           width: 32,
                           height: 32,
                         )
