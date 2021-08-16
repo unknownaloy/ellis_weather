@@ -57,7 +57,7 @@ class WeekdaysWeatherTable extends StatelessWidget {
           ],
         ),
         ...dailyWeatherData!.map((data) {
-          String dayOfWeek = Utils.testingOne(data.dateTime);
+          String dayOfWeek = Utils.abbrWeekdayMonthFormatter(data.dateTime);
           return TableRow(
             children: [
               Text(

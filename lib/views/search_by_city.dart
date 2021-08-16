@@ -101,9 +101,7 @@ class _SearchByCityState extends State<SearchByCity> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return CityWeatherWrapper(
-                              cityName: searchQuery,
-                            );
+                            return CityWeatherWrapper();
                           },
                         ),
                       );

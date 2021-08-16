@@ -1,13 +1,17 @@
 import 'package:intl/intl.dart';
 
 class Utils {
-  /// Hour and minutes format
+  /// Refer to the intl date format documentation, link below =>
+  /// [https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html]
   static final _hourMinutesFormat = DateFormat('jm');
 
   static final _weekdayMonthDayFormat = DateFormat("EEEE, LLL d");
 
   static final _abrWeekDayMonthDayFormat = DateFormat("E, LLL d");
 
+  /// This method takes in the time stamp which is an integer value of
+  /// "milli seconds since epoch" and formats it using [_hourMinutesFormat]
+  /// e.g. => 12:00 AM
   static String hourMinutesFormatter(int? timeStamp) {
     if (timeStamp == null) {
       int year = DateTime.now().year;
@@ -21,6 +25,9 @@ class Utils {
     return result;
   }
 
+  /// This method takes in the time stamp which is an integer value of
+  /// "milli seconds since epoch" and formats it using [_weekdayMonthDayFormat]
+  /// e.g. => Monday, Jan 1
   static String weekdayMonthDayFormatter(int? timeStamp) {
     if (timeStamp == null) return "Today";
 
@@ -31,7 +38,10 @@ class Utils {
     return result;
   }
 
-  static String testingOne(int? timeStamp) {
+  /// This method takes in the time stamp which is an integer value of
+  /// "milli seconds since epoch" and formats it using [_abrWeekDayMonthDayFormat]
+  /// e.g. => Mon, Jan 10
+  static String abbrWeekdayMonthFormatter(int? timeStamp) {
     if (timeStamp == null) return "000";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
@@ -41,6 +51,7 @@ class Utils {
     return result;
   }
 
+  /// This method is responsible for adding ordinal symbols to the end of a number
   static String addOrdinalSymbol(String? dateTime) {
     if (dateTime == null) return "";
     late String result;
@@ -60,10 +71,14 @@ class Utils {
     return result;
   }
 
+  /// This method uses the icon code from an API call to generate the right URL
+  /// to fetch the weather icon
   static String generateIconUrl(String? iconCode) {
     return "http://openweathermap.org/img/wn/$iconCode@2x.png";
   }
 
+  /// This method uses the weather icon code to generate a matching background
+  /// image for the weather condition
   static String generateBackgroundImage(String? iconCode) {
     if (iconCode == null || iconCode == "") return "default_image";
 
@@ -109,6 +124,8 @@ class Utils {
     return backgroundImage;
   }
 
+  /// This method uses the passed in temperature formulate a message feedback
+  /// for the user
   static String generateWeatherMessage(int? temp) {
     if (temp == null) return "Weather is boring";
 
@@ -123,6 +140,7 @@ class Utils {
     }
   }
 
+  /// This method capitalizes the first letter of every word passed in
   static String capitalizeFirstLetterOfWords(String? words) {
     if (words == null) return "";
 

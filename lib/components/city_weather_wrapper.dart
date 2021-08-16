@@ -1,14 +1,12 @@
 import 'package:ellis_weather/components/loader.dart';
 import 'package:ellis_weather/view_models/city_search_view_model.dart';
-import 'package:ellis_weather/views/city_loaded_data.dart';
+import 'package:ellis_weather/views/city_weather_screen.dart';
 import 'package:ellis_weather/views/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CityWeatherWrapper extends StatefulWidget {
-  final cityName;
-
-  CityWeatherWrapper({required this.cityName});
+  CityWeatherWrapper({Key? key}) : super(key: key);
 
   @override
   _CityWeatherWrapperState createState() => _CityWeatherWrapperState();
@@ -32,7 +30,7 @@ class _CityWeatherWrapperState extends State<CityWeatherWrapper> {
     } else if (cityState == CityState.ERROR) {
       return ErrorScreen();
     } else {
-      return CityLoadedData();
+      return CityWeatherScreen();
     }
   }
 }
