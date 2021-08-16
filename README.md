@@ -1,6 +1,9 @@
 # Ellis Weather
 
-A weather app that shows the weather information of the current location of the user. User can also choose to search for the current weather information of other locations by inputting the city name into the search query field provided.
+A weather app that shows the weather information of the current location of the user. User can also 
+choose to search for the current weather information of other locations by inputting the city name 
+into the search query field provided. The app uses the MVVM architecture with the Provider package
+for state management.
 
 ## Getting Started
 
