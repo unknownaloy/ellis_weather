@@ -122,4 +122,17 @@ class Utils {
       return "Bring a 🧥 just in case";
     }
   }
+
+  static String capitalizeFirstLetterOfWords(String? words) {
+    if (words == null) return "";
+
+    String formattedWords;
+    formattedWords = words
+        .toLowerCase()
+        .split(' ')
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join(' ');
+
+    return formattedWords;
+  }
 }

@@ -3,7 +3,7 @@ import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:ellis_weather/views/search_by_city.dart';
 import 'package:ellis_weather/components/weekdays_weather_table.dart';
-import 'package:ellis_weather/views/wrapper.dart';
+import 'package:ellis_weather/components/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -129,8 +129,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
                           /// Weather Description
                           Text(
-                            weatherData.current!.weather?[0].description ??
-                                "...", // description,
+                            "${Utils.capitalizeFirstLetterOfWords(weatherData.current!.weather?[0].description)}", // description,
                             style: kContentTextStyle,
                           ),
 

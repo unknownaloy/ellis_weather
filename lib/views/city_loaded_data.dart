@@ -55,7 +55,7 @@ class CityLoadedData extends StatelessWidget {
 
                       /// Weather Description
                       Text(
-                        "${data.cityData.weather![0].description}", // description,
+                        "${Utils.capitalizeFirstLetterOfWords(data.cityData.weather![0].description)}", // description,
                         style: kContentTextStyle,
                       ),
 

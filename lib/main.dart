@@ -1,6 +1,6 @@
 import 'package:ellis_weather/view_models/city_search_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
-import 'package:ellis_weather/views/wrapper.dart';
+import 'package:ellis_weather/components/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

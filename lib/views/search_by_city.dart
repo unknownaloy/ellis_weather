@@ -1,6 +1,6 @@
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/city_search_view_model.dart';
-import 'package:ellis_weather/views/city_weather_screen.dart';
+import 'package:ellis_weather/components/city_weather_wrapper.dart';
 import 'package:ellis_weather/views/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +101,7 @@ class _SearchByCityState extends State<SearchByCity> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return CityWeatherScreen(
+                            return CityWeatherWrapper(
                               cityName: searchQuery,
                             );
                           },
