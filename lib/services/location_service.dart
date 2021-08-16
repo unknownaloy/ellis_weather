@@ -34,7 +34,6 @@ class LocationService {
   Future getCurrentLocation() async {
     try {
       LocationData locationData = await getLocationData();
-      print("Print location data $locationData");
       latitude = locationData.latitude!;
       longitude = locationData.longitude!;
     } catch (e) {

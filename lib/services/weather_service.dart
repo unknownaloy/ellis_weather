@@ -11,15 +11,10 @@ class WeatherService {
   /// Method to get weather data of the current location using the "One Call"
   /// method from "openweathermap.org"
   Future<dynamic> getWeatherData() async {
-    print("Got to the getWeatherData method");
     try {
-      print("Got to the try statement");
       LocationService locatorService = LocationService();
       print("locator service");
       await locatorService.getCurrentLocation();
-
-      print("getWeatherData => Longitude === ${locatorService.longitude}");
-      print("getWeatherData => latitude === ${locatorService.latitude}");
 
       final coordinates =
           new Coordinates(locatorService.latitude, locatorService.longitude);
@@ -27,8 +22,6 @@ class WeatherService {
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
       cityName = first.locality!;
-
-      print("getWeatherData => City name === $cityName");
 
       var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/onecall?lat=${locatorService.latitude}&lon=${locatorService.longitude}&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric");
@@ -42,7 +35,7 @@ class WeatherService {
         print("Error");
 
         /// TODO: Throw better error here
-        throw ("Error");
+        throw Exception("Error");
       }
     } catch (e) {
       print(e);
@@ -53,18 +46,6 @@ class WeatherService {
     String openWeatherIconCode =
         "http://openweathermap.org/img/wn/$iconCode@2x.png";
     return openWeatherIconCode;
-  }
-
-  String getMessage(int temp) {
-    if (temp > 25) {
-      return 'It\'s 🍦 time';
-    } else if (temp > 20) {
-      return 'Time for shorts and 👕';
-    } else if (temp < 10) {
-      return 'You\'ll need 🧣 and 🧤';
-    } else {
-      return 'Bring a 🧥 just in case';
-    }
   }
 
   Future<dynamic> getWeatherByCityName(String cityName) async {
@@ -79,7 +60,7 @@ class WeatherService {
         return jsonDecode(data);
       } else {
         print("Error");
-        throw ("Error");
+        throw Exception("Error");
       }
     } catch (e) {
       print(e);

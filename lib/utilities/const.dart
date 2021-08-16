@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-
-final kHourMinuteFormat = DateFormat('jm');
 
 const kTextFieldInputDecoration = InputDecoration(
   filled: true,
