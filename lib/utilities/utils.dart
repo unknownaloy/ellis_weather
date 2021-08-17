@@ -9,13 +9,23 @@ class Utils {
 
   static final _abrWeekDayMonthDayFormat = DateFormat("E, LLL d");
 
+  DateTime generateDummyDateTime() {
+    int timeStamp = DateTime.now().millisecondsSinceEpoch;
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
+
+    print(dateTime);
+    return dateTime;
+  }
+
   /// This method takes in the time stamp which is an integer value of
   /// "milli seconds since epoch" and formats it using [_hourMinutesFormat]
   /// e.g. => 12:00 AM
   static String hourMinutesFormatter(int? timeStamp) {
     if (timeStamp == null) {
-      int year = DateTime.now().year;
-      return year.toString();
+      int dummyTimeStamp = DateTime.now().millisecondsSinceEpoch;
+      DateTime dummyDateTime =
+          DateTime.fromMillisecondsSinceEpoch(dummyTimeStamp * 1000);
+      return _hourMinutesFormat.format(dummyDateTime);
     }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
@@ -29,7 +39,12 @@ class Utils {
   /// "milli seconds since epoch" and formats it using [_weekdayMonthDayFormat]
   /// e.g. => Monday, Jan 1
   static String weekdayMonthDayFormatter(int? timeStamp) {
-    if (timeStamp == null) return "Today";
+    if (timeStamp == null) {
+      int dummyTimeStamp = DateTime.now().millisecondsSinceEpoch;
+      DateTime dummyDateTime =
+          DateTime.fromMillisecondsSinceEpoch(dummyTimeStamp * 1000);
+      return _weekdayMonthDayFormat.format(dummyDateTime);
+    }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
 
@@ -42,7 +57,12 @@ class Utils {
   /// "milli seconds since epoch" and formats it using [_abrWeekDayMonthDayFormat]
   /// e.g. => Mon, Jan 10
   static String abbrWeekdayMonthFormatter(int? timeStamp) {
-    if (timeStamp == null) return "000";
+    if (timeStamp == null) {
+      int dummyTimeStamp = DateTime.now().millisecondsSinceEpoch;
+      DateTime dummyDateTime =
+          DateTime.fromMillisecondsSinceEpoch(dummyTimeStamp * 1000);
+      return _abrWeekDayMonthDayFormat.format(dummyDateTime);
+    }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
 
