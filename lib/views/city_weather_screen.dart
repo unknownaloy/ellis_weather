@@ -25,8 +25,8 @@ class CityWeatherScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
         ),
         centerTitle: true,
-        title:
-            Text("${Utils.weekdayMonthDayFormatter(data.cityData.dateTime)}"),
+        title: Text(
+            "${dateFormatter.weekdayMonthDayFormatter(data.cityData.dateTime)}"),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -128,7 +128,7 @@ class CityWeatherScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Sunrise: ${Utils.hourMinutesFormatter(data.cityData.citySys!.sunrise)}",
+                            "Sunrise: ${dateFormatter.hourMinutesFormatter(data.cityData.citySys!.sunrise)}",
                             style: kContentTextStyle,
                           ),
                           SizedBox(
@@ -143,7 +143,7 @@ class CityWeatherScreen extends StatelessWidget {
                             width: 16.0,
                           ),
                           Text(
-                            "Sunset: ${Utils.hourMinutesFormatter(data.cityData.citySys!.sunset)}",
+                            "Sunset: ${dateFormatter.hourMinutesFormatter(data.cityData.citySys!.sunset)}",
                             style: kContentTextStyle,
                           ),
                           SizedBox(

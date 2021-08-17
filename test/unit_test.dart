@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 
 main() {
-  group("Test for timestamp formatters", () {
+  group("DateTimeFormatter", () {
     group("hourMinutesFormatter test", () {
       test("Testing a valid timestamp", () {
         String result = Utils.hourMinutesFormatter(1629002776);

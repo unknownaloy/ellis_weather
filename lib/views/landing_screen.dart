@@ -1,3 +1,4 @@
+import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
@@ -53,6 +54,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final weatherData = Provider.of<WeatherViewModel>(context).weatherData;
+    final dateFormatter = DateTimeFormatter();
     return SafeArea(
       child: WillPopScope(
         onWillPop: onWillPop,
@@ -76,7 +78,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ),
             title: Text(
-                "${Utils.weekdayMonthDayFormatter(weatherData.current!.dateTime)}"),
+                "${dateFormatter.weekdayMonthDayFormatter(weatherData.current!.dateTime)}"),
             centerTitle: true,
             actions: [
               IconButton(
@@ -178,7 +180,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Sunrise: ${Utils.hourMinutesFormatter(weatherData.current!.sunrise)}",
+                                "Sunrise: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunrise)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(
@@ -193,7 +195,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 width: 16.0,
                               ),
                               Text(
-                                "Sunset: ${Utils.hourMinutesFormatter(weatherData.current!.sunset)}",
+                                "Sunset: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunset)}",
                                 style: kContentTextStyle,
                               ),
                               SizedBox(

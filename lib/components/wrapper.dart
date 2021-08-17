@@ -24,9 +24,9 @@ class _WrapperState extends State<Wrapper> {
     final weatherState = Provider.of<WeatherViewModel>(context).weatherState;
 
     final weatherUtils = Utils();
-    final testingOne = weatherUtils.generateDummyDateTime();
-
-    print("Testing one => $testingOne");
+    // final testingOne = weatherUtils.generateDummyDateTime();
+    //
+    // print("Testing one => $testingOne");
 
     if (weatherState == WeatherState.LOADING) {
       return Loader();

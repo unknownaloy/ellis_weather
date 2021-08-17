@@ -1,3 +1,4 @@
+import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
@@ -57,7 +58,9 @@ class WeekdaysWeatherTable extends StatelessWidget {
           ],
         ),
         ...dailyWeatherData!.map((data) {
-          String dayOfWeek = Utils.abbrWeekdayMonthFormatter(data.dateTime);
+          final dateFormatter = DateTimeFormatter();
+          String dayOfWeek =
+              dateFormatter.abbrWeekdayMonthFormatter(data.dateTime);
           return TableRow(
             children: [
               Text(
