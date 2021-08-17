@@ -9,14 +9,6 @@ class Utils {
 
   static final _abrWeekDayMonthDayFormat = DateFormat("E, LLL d");
 
-  DateTime generateDummyDateTime() {
-    int timeStamp = DateTime.now().millisecondsSinceEpoch;
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-
-    print(dateTime);
-    return dateTime;
-  }
-
   /// This method takes in the time stamp which is an integer value of
   /// "milli seconds since epoch" and formats it using [_hourMinutesFormat]
   /// e.g. => 12:00 AM

@@ -1,3 +1,4 @@
+import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/city_search_view_model.dart';
@@ -11,6 +12,7 @@ class CityWeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<CitySearchViewModel>(context);
+    final dateFormatter = DateTimeFormatter();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
