@@ -20,11 +20,11 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<WeatherViewModel>(context);
+    final weatherState = Provider.of<WeatherViewModel>(context).weatherState;
 
-    if (viewModel.weatherState == WeatherState.LOADING) {
+    if (weatherState == WeatherState.LOADING) {
       return Loader();
-    } else if (viewModel.weatherState == WeatherState.ERROR) {
+    } else if (weatherState == WeatherState.ERROR) {
       return ErrorScreen();
     } else {
       return LandingScreen();

@@ -1,4 +1,4 @@
-import 'package:ellis_weather/functions/utils.dart';
+import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/models/city_weather_data.dart';
 import 'package:ellis_weather/services/weather_service.dart';
 import 'package:flutter/foundation.dart';

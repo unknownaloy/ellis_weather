@@ -13,7 +13,7 @@ After installing the app, launch the app from your app drawer. Ensure to give th
 
 **Note:** The location permission is just to get your current location data to enable the app provide you with an accurate weather information.
 
-If any issues is observed, please endeavour to open up an issue with the problem.
+If any bugs is observed, please endeavour to open an issue with the problem.
 
 ### Upcoming Features
 

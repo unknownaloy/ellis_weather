@@ -1,4 +1,4 @@
-import 'package:ellis_weather/functions/utils.dart';
+import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
