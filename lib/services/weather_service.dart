@@ -53,6 +53,7 @@ class WeatherService {
   }
 
   Future<dynamic> getWeatherByCityName(String cityName) async {
+    /// TODO: Return a CityWeatherData from this method
     try {
       var url = Uri.parse(
           "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric");
