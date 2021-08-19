@@ -24,15 +24,39 @@ class WeatherViewModel extends ChangeNotifier {
       _weatherState = WeatherState.LOADING;
       notifyListeners();
     }
-    _weatherService.getWeatherData().then((data) {
-      _weatherData = WeatherData.fromJson(data);
-      _weatherData.cityName = _weatherService.cityName;
 
-      _weatherState = WeatherState.DATA_PRESENT;
-    }).catchError((onError) {
+    try {
+      WeatherData? temp = await _weatherService.getWeatherData();
+      if (temp != null) {
+        _weatherData = temp;
+        _weatherState = WeatherState.DATA_PRESENT;
+        notifyListeners();
+      } else {
+        _weatherState = WeatherState.ERROR;
+        notifyListeners();
+      }
+    } catch (e) {
       _weatherState = WeatherState.ERROR;
-    }).whenComplete(() {
       notifyListeners();
-    });
+    }
+
+    // _weatherService.getWeatherData().then((data) {
+    //   _weatherData = WeatherData.fromJson(data);
+    //   _weatherData.cityName = _weatherService.cityName;
+    //
+    //   _weatherState = WeatherState.DATA_PRESENT;
+    // }).catchError((onError) {
+    //   _weatherState = WeatherState.ERROR;
+    // }).whenComplete(() {
+    //   notifyListeners();
+    // });
+  }
+
+  Future<void> pullToRefresh() async {
+    WeatherData? temp = await _weatherService.getWeatherData();
+    if (temp != null) {
+      _weatherData = temp;
+      notifyListeners();
+    }
   }
 }

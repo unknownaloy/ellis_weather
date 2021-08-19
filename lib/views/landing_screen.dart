@@ -32,6 +32,12 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 
+  Future _refreshData() async {
+    await Future.delayed(Duration(seconds: 3));
+
+    setState(() {});
+  }
+
   /// Method to exit the app
   Future<bool> onWillPop() async {
     DateTime now = DateTime.now();
@@ -116,112 +122,116 @@ class _LandingScreenState extends State<LandingScreen> {
             constraints: BoxConstraints.expand(),
             child: Center(
               child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          /// City Name
-                          Text(
-                            weatherData.cityName ?? "...",
-                            style: kCityNameTextStyle,
-                          ),
+                child: RefreshIndicator(
+                  onRefresh: () async {},
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            /// City Name
+                            Text(
+                              weatherData.cityName ?? "...",
+                              style: kCityNameTextStyle,
+                            ),
 
-                          /// Weather Description
-                          Text(
-                            "${Utils.capitalizeFirstLetterOfWords(weatherData.current!.weather?[0].description)}", // description,
-                            style: kContentTextStyle,
-                          ),
+                            /// Weather Description
+                            Text(
+                              "${Utils.capitalizeFirstLetterOfWords(weatherData.current!.weather?[0].description)}", // description,
+                              style: kContentTextStyle,
+                            ),
 
-                          /// Weather Temperature
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "${weatherData.current!.temp!.toInt()}°C", // '$temperature°C',
-                                style: kTempTextStyle,
-                              ),
-                              weatherData.current!.weather?[0].icon != null
-                                  ? Image.network(
-                                      "${Utils.generateIconUrl(weatherData.current!.weather![0].icon)}",
-                                      width: 96,
-                                      height: 96,
-                                    )
-                                  : SizedBox.shrink(),
-                            ],
-                          ),
+                            /// Weather Temperature
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "${weatherData.current!.temp!.toInt()}°C", // '$temperature°C',
+                                  style: kTempTextStyle,
+                                ),
+                                weatherData.current!.weather?[0].icon != null
+                                    ? Image.network(
+                                        "${Utils.generateIconUrl(weatherData.current!.weather![0].icon)}",
+                                        width: 96,
+                                        height: 96,
+                                      )
+                                    : SizedBox.shrink(),
+                              ],
+                            ),
 
-                          /// Feels like and Humidity
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Feels like: ${weatherData.current!.feelsLike!.toInt()}°C",
-                                style: kContentTextStyle,
-                              ),
-                              SizedBox(
-                                width: 16.0,
-                              ),
-                              Text(
-                                "Humidity: ${weatherData.current!.humidity}%",
-                                style: kContentTextStyle,
-                              ),
-                            ],
-                          ),
+                            /// Feels like and Humidity
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Feels like: ${weatherData.current!.feelsLike!.toInt()}°C",
+                                  style: kContentTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 16.0,
+                                ),
+                                Text(
+                                  "Humidity: ${weatherData.current!.humidity}%",
+                                  style: kContentTextStyle,
+                                ),
+                              ],
+                            ),
 
-                          SizedBox(
-                            height: 10.0,
-                          ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
 
-                          /// Sunrise and Sunset
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Sunrise: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunrise)}",
-                                style: kContentTextStyle,
-                              ),
-                              SizedBox(
-                                width: 4.0,
-                              ),
-                              SvgPicture.asset(
-                                'images/sunrise.svg',
-                                color: Color.fromRGBO(253, 184, 19, 1),
-                                width: 14.0,
-                              ),
-                              SizedBox(
-                                width: 16.0,
-                              ),
-                              Text(
-                                "Sunset: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunset)}",
-                                style: kContentTextStyle,
-                              ),
-                              SizedBox(
-                                width: 4.0,
-                              ),
-                              SvgPicture.asset(
-                                'images/sunset.svg',
-                                color: Color.fromRGBO(253, 184, 19, 1),
-                                width: 14.0,
-                              ),
-                            ],
-                          ),
+                            /// Sunrise and Sunset
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Sunrise: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunrise)}",
+                                  style: kContentTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 4.0,
+                                ),
+                                SvgPicture.asset(
+                                  'images/sunrise.svg',
+                                  color: Color.fromRGBO(253, 184, 19, 1),
+                                  width: 14.0,
+                                ),
+                                SizedBox(
+                                  width: 16.0,
+                                ),
+                                Text(
+                                  "Sunset: ${dateFormatter.hourMinutesFormatter(weatherData.current!.sunset)}",
+                                  style: kContentTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 4.0,
+                                ),
+                                SvgPicture.asset(
+                                  'images/sunset.svg',
+                                  color: Color.fromRGBO(253, 184, 19, 1),
+                                  width: 14.0,
+                                ),
+                              ],
+                            ),
 
-                          SizedBox(
-                            height: 96.0,
-                          ),
+                            SizedBox(
+                              height: 96.0,
+                            ),
 
-                          /// Daily Forecast
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 56.0, left: 2.0, right: 2.0),
-                            child: WeekdaysWeatherTable(),
-                          ),
-                        ],
-                      ),
-                    ],
+                            /// Daily Forecast
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 56.0, left: 2.0, right: 2.0),
+                              child: WeekdaysWeatherTable(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

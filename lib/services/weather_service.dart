@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ellis_weather/models/weather_data.dart';
 import 'package:ellis_weather/services/location_service.dart';
 import 'package:ellis_weather/utilities/api_key.dart';
 import 'package:flutter_geocoder/geocoder.dart';
@@ -10,7 +11,7 @@ class WeatherService {
 
   /// Method to get weather data of the current location using the "One Call"
   /// method from "openweathermap.org"
-  Future<dynamic> getWeatherData() async {
+  Future<WeatherData?> getWeatherData() async {
     try {
       LocationService locatorService = LocationService();
       print("locator service");
@@ -30,14 +31,17 @@ class WeatherService {
 
       if (response.statusCode == 200) {
         String data = response.body;
+        final decodedData = jsonDecode(data);
+        WeatherData weatherData = WeatherData.fromJson(decodedData);
+        weatherData.cityName = cityName;
+        return weatherData;
         return jsonDecode(data);
       } else {
-        print("Error");
-
-        /// TODO: Throw better error here
-        throw Exception("Error");
+        throw Exception(
+            "Weather data not currently available in your location");
       }
     } catch (e) {
+      /// TODO: Throw a better error message here and add Socket Exception
       print(e);
     }
   }
