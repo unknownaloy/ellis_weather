@@ -28,8 +28,11 @@ class CitySearchViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchCityWeatherData() async {
+    if (_cityState != CityState.LOADING) {
+      _cityState = CityState.LOADING;
+      notifyListeners();
+    }
     WeatherService weatherService = WeatherService();
-
     weatherService.getWeatherByCityName(_cityName).then((data) {
       _cityData = CityWeatherData.fromJson(data);
 
