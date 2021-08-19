@@ -123,7 +123,10 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Center(
               child: SafeArea(
                 child: RefreshIndicator(
-                  onRefresh: () async {},
+                  onRefresh: () {
+                    return Provider.of<WeatherViewModel>(context, listen: false)
+                        .pullToRefresh();
+                  },
                   child: SingleChildScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
                     child: Column(
