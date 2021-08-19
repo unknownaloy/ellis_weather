@@ -1,5 +1,4 @@
 import 'package:ellis_weather/utilities/const.dart';
-import 'package:ellis_weather/components/wrapper.dart';
 import 'package:ellis_weather/view_models/city_search_view_model.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ErrorScreen extends StatelessWidget {
+  final void Function() onPressed;
+
+  ErrorScreen({required this.onPressed});
   @override
   Widget build(BuildContext context) {
     /// Main weather view model
@@ -42,13 +44,7 @@ class ErrorScreen extends StatelessWidget {
 
               /// "Try again" button
               ElevatedButton(
-                onPressed: () {
-                  if (weatherState == WeatherState.ERROR) {
-                    weatherViewModel.fetchWeatherData();
-                  } else {
-                    cityViewModel.fetchCityWeatherData();
-                  }
-                },
+                onPressed: onPressed,
                 child: Text("Try again!"),
               ),
             ],

@@ -23,12 +23,17 @@ class _CityWeatherWrapperState extends State<CityWeatherWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final cityState = Provider.of<CitySearchViewModel>(context).cityState;
+    final cityViewModel = Provider.of<CitySearchViewModel>(context);
+    final cityState = cityViewModel.cityState;
 
     if (cityState == CityState.LOADING) {
       return Loader();
     } else if (cityState == CityState.ERROR) {
-      return ErrorScreen();
+      return ErrorScreen(
+        onPressed: () {
+          cityViewModel.fetchCityWeatherData();
+        },
+      );
     } else {
       return CityWeatherScreen();
     }
