@@ -1,14 +1,11 @@
 import 'package:intl/intl.dart';
 
-DateTime _generateSystemTime() {
-  int timeStamp = DateTime.now().millisecondsSinceEpoch;
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-
-  return dateTime;
+int _generateSystemTime() {
+  return DateTime.now().millisecondsSinceEpoch;
 }
 
 class DateTimeFormatter {
-  final DateTime Function() _getCurrentTime;
+  final int Function() _getCurrentTime;
 
   DateTimeFormatter([this._getCurrentTime = _generateSystemTime]);
 
@@ -23,7 +20,9 @@ class DateTimeFormatter {
   String hourMinutesFormatter(int? timeStamp) {
     if (timeStamp == null) {
       final now = _getCurrentTime();
-      return _hourMinutesFormat.format(now);
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(now * 1000);
+
+      return _hourMinutesFormat.format(dateTime);
     }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
@@ -39,7 +38,9 @@ class DateTimeFormatter {
   String weekdayMonthDayFormatter(int? timeStamp) {
     if (timeStamp == null) {
       final now = _getCurrentTime();
-      return _weekdayMonthDayFormat.format(now);
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(now * 1000);
+
+      return _weekdayMonthDayFormat.format(dateTime);
     }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
@@ -55,7 +56,8 @@ class DateTimeFormatter {
   String abbrWeekdayMonthFormatter(int? timeStamp) {
     if (timeStamp == null) {
       final now = _getCurrentTime();
-      return _abrWeekDayMonthDayFormat.format(now);
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(now * 1000);
+      return _abrWeekDayMonthDayFormat.format(dateTime);
     }
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);

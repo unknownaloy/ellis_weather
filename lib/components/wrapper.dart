@@ -1,5 +1,4 @@
 import 'package:ellis_weather/components/loader.dart';
-import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/view_models/weather_view_model.dart';
 import 'package:ellis_weather/views/error_screen.dart';
 import 'package:ellis_weather/views/landing_screen.dart';
@@ -22,11 +21,6 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final weatherState = Provider.of<WeatherViewModel>(context).weatherState;
-
-    final weatherUtils = Utils();
-    // final testingOne = weatherUtils.generateDummyDateTime();
-    //
-    // print("Testing one => $testingOne");
 
     if (weatherState == WeatherState.LOADING) {
       return Loader();

@@ -1,62 +1,51 @@
-import 'package:ellis_weather/utilities/utils.dart';
+import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
 
 main() {
   group("DateTimeFormatter", () {
     group("hourMinutesFormatter test", () {
       test("Testing a valid timestamp", () {
-        String result = Utils.hourMinutesFormatter(1629002776);
+        final result = DateTimeFormatter().hourMinutesFormatter(1629002776);
 
         expect(result, "5:46 AM");
       });
 
       test("Testing a null value", () {
-        final hourMinutesFormat = DateFormat("jm");
-        final timeStamp = DateTime.now().millisecondsSinceEpoch;
-        final dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-        final expectedResult = hourMinutesFormat.format(dateTime);
-        String result = Utils.hourMinutesFormatter(null);
+        final result =
+            DateTimeFormatter(() => 1629292524637).hourMinutesFormatter(null);
 
-        expect(result, expectedResult);
+        expect(result, "9:50 AM");
       });
     });
 
     group("weekdayMonthDayFormatter test", () {
       test("Testing a valid timestamp", () {
-        final result = Utils.weekdayMonthDayFormatter(1629234529);
+        final result = DateTimeFormatter().weekdayMonthDayFormatter(1629234529);
 
         expect(result, "Tuesday, Aug 17");
       });
 
       test("Testing a null value", () {
-        final weekdayMonthDayFormat = DateFormat("EEEE, LLL d");
-        final timeStamp = DateTime.now().millisecondsSinceEpoch;
-        final dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-        final expectedResult = weekdayMonthDayFormat.format(dateTime);
+        final result = DateTimeFormatter(() => 1629292524637)
+            .weekdayMonthDayFormatter(null);
 
-        final result = Utils.weekdayMonthDayFormatter(null);
-
-        expect(result, expectedResult);
+        expect(result, "Thursday, Mar 23");
       });
     });
 
     group("abbrWeekdayMonthFormatter", () {
       test("Testing a valid timestamp", () {
-        final result = Utils.abbrWeekdayMonthFormatter(1629230400);
+        final result =
+            DateTimeFormatter().abbrWeekdayMonthFormatter(1629230400);
 
         expect(result, "Tue, Aug 17");
       });
 
       test("Testing a null value", () {
-        final abrWeekDayMonthDayFormat = DateFormat("E, LLL d");
-        final timeStamp = DateTime.now().millisecondsSinceEpoch;
-        final dateTime = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-        final expectedResult = abrWeekDayMonthDayFormat.format(dateTime);
+        final result =
+            DateTimeFormatter(() => 1629230400).abbrWeekdayMonthFormatter(null);
 
-        final result = Utils.abbrWeekdayMonthFormatter(null);
-
-        expect(result, expectedResult);
+        expect(result, "Tue, Aug 17");
       });
     });
   });
