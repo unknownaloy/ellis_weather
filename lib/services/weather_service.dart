@@ -41,7 +41,7 @@ class WeatherService {
             "Weather data not currently available in your location");
       }
     } catch (e) {
-      /// TODO: Throw a better error message here and add Socket Exception
+      /// TODO: Throw a better error message here and add on Socket Exception
       print(e);
     }
   }

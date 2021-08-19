@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
@@ -156,10 +157,11 @@ class _LandingScreenState extends State<LandingScreen> {
                                   style: kTempTextStyle,
                                 ),
                                 weatherData.current!.weather?[0].icon != null
-                                    ? Image.network(
-                                        "${Utils.generateIconUrl(weatherData.current!.weather![0].icon)}",
-                                        width: 96,
-                                        height: 96,
+                                    ? CachedNetworkImage(
+                                        imageUrl:
+                                            "${Utils.generateIconUrl(weatherData.current!.weather![0].icon)}",
+                                        width: 96.0,
+                                        height: 96.0,
                                       )
                                     : SizedBox.shrink(),
                               ],

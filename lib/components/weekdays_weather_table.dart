@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ellis_weather/functions/date_formatter.dart';
 import 'package:ellis_weather/utilities/utils.dart';
 import 'package:ellis_weather/utilities/const.dart';
@@ -82,10 +83,11 @@ class WeekdaysWeatherTable extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   data.dailyWeather![0].icon != null
-                      ? Image.network(
-                          "${Utils.generateIconUrl(data.dailyWeather![0].icon)}",
-                          width: 32,
-                          height: 32,
+                      ? CachedNetworkImage(
+                          imageUrl:
+                              "${Utils.generateIconUrl(data.dailyWeather![0].icon)}",
+                          width: 32.0,
+                          height: 32.0,
                         )
                       : SizedBox.shrink(),
                   Text(
