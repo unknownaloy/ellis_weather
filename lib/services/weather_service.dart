@@ -14,7 +14,6 @@ class WeatherService {
   Future<WeatherData?> getWeatherData() async {
     try {
       LocationService locatorService = LocationService();
-      print("locator service");
       await locatorService.getCurrentLocation();
 
       final coordinates =
