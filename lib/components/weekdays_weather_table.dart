@@ -13,6 +13,59 @@ class WeekdaysWeatherTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final dailyWeatherData =
         Provider.of<WeatherViewModel>(context).weatherData.daily;
+
+    List<TableRow> listOfTableRow = [];
+
+    for (int i = 1; i < dailyWeatherData!.length; i++) {
+      final dateFormatter = DateTimeFormatter();
+
+      final tableWeatherData = dailyWeatherData[i];
+
+      final weatherDataDateTime = tableWeatherData.dateTime;
+
+      String dayOfWeek = dateFormatter.abbrWeekdayMonthFormatter(weatherDataDateTime);
+
+      final widgetToReturn = TableRow(
+        children: [
+          Text(
+            "$dayOfWeek${Utils.addOrdinalSymbol(dayOfWeek)}",
+            style: kContentTextStyle,
+          ),
+          Text(
+            "${tableWeatherData.dailyTemp!.max!.toInt()}°C",
+            style: kContentTextStyle,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            "${tableWeatherData.dailyTemp!.min!.toInt()}°C",
+            style: kContentTextStyle,
+            textAlign: TextAlign.center,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              tableWeatherData.dailyWeather![0].icon != null
+                  ? CachedNetworkImage(
+                imageUrl:
+                "${Utils.generateIconUrl(tableWeatherData.dailyWeather![0].icon)}",
+                width: 32.0,
+                height: 32.0,
+              )
+                  : SizedBox.shrink(),
+              Text(
+                "${tableWeatherData.humidity}%",
+                style: kContentTextStyle,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ],
+      );
+
+      listOfTableRow.add(widgetToReturn);
+    }
+
     return Table(
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       border: TableBorder(
@@ -58,48 +111,7 @@ class WeekdaysWeatherTable extends StatelessWidget {
             ),
           ],
         ),
-        ...dailyWeatherData!.map((data) {
-          final dateFormatter = DateTimeFormatter();
-          String dayOfWeek =
-              dateFormatter.abbrWeekdayMonthFormatter(data.dateTime);
-          return TableRow(
-            children: [
-              Text(
-                "$dayOfWeek${Utils.addOrdinalSymbol(dayOfWeek)}",
-                style: kContentTextStyle,
-              ),
-              Text(
-                "${data.dailyTemp!.max!.toInt()}°C",
-                style: kContentTextStyle,
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                "${data.dailyTemp!.min!.toInt()}°C",
-                style: kContentTextStyle,
-                textAlign: TextAlign.center,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  data.dailyWeather![0].icon != null
-                      ? CachedNetworkImage(
-                          imageUrl:
-                              "${Utils.generateIconUrl(data.dailyWeather![0].icon)}",
-                          width: 32.0,
-                          height: 32.0,
-                        )
-                      : SizedBox.shrink(),
-                  Text(
-                    "${data.humidity}%",
-                    style: kContentTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
+        ...listOfTableRow,
       ],
     );
   }
